@@ -1,19 +1,21 @@
-import { type User } from "../types.d"
+import { SortBy, type User } from "../types.d"
 
 interface Props {
+    changeSorting: (sort: SortBy) => void
+    deleteUser: (email: string) => void
     showColors: boolean
     users: User[]
 }
 
-export function UsersList ({ showColors, users }: Props) {
+export function UsersList ({ changeSorting, deleteUser, showColors, users }: Props) {
     return (
         <table width='100%'>
             <thead>
                 <tr>
                     <th>Foto</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Pais</th>
+                    <th className="pointer" onClick={() => changeSorting(SortBy.NAME)}>Nombre</th>
+                    <th className="pointer" onClick={() => changeSorting(SortBy.LAST)}>Apellido</th>
+                    <th className="pointer" onClick={() => changeSorting(SortBy.COUNTRY)}>Pais</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -24,7 +26,7 @@ export function UsersList ({ showColors, users }: Props) {
                         const color = showColors ? backgroundColor : 'transparent'
                         return (
                             // key={user.id.value}
-                            <tr key={index} style={{ backgroundColor: color }}>
+                            <tr key={user.email} style={{ backgroundColor: color }}>
                                 <td>
                                     <img src={user.picture.thumbnail} />
                                 </td>
@@ -32,7 +34,9 @@ export function UsersList ({ showColors, users }: Props) {
                                 <td>{user.name.last}</td>
                                 <td>{user.location.country}</td>
                                 <td>
-                                    <button>Delete</button>
+                                    <button onClick={() => {
+                                        deleteUser(user.email)
+                                    }}>Delete</button>
                                 </td>
                             </tr>
                         )
