@@ -1,3 +1,9 @@
+declare global { 
+    interface Array<T> {
+        toSorted(compareFn?: (a: T, b: T) => number): T[] // declaramos el tipo to sorted en typescript
+    }
+}
+
 export interface APIResults {
     results: User[];
     info:    Info;

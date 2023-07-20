@@ -23,7 +23,8 @@ export function UsersList ({ showColors, users }: Props) {
                         const backgroundColor = index % 2 === 0 ? '#333' : '#555'
                         const color = showColors ? backgroundColor : 'transparent'
                         return (
-                            <tr key={user.id.value} style={{ backgroundColor: color }}>
+                            // key={user.id.value}
+                            <tr key={index} style={{ backgroundColor: color }}>
                                 <td>
                                     <img src={user.picture.thumbnail} />
                                 </td>
